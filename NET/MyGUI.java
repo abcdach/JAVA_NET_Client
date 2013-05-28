@@ -147,11 +147,11 @@ class Button_xxx_Handler implements ActionListener {
 			System.out.println("Client connected ");
 			out=new PrintStream(client.getOutputStream());
 
-			out.print("Hello from client\n");
-			out.flush();
+			//out.print("Hello from client\n");
+			//out.flush();
 
 			BufferedReader in= new BufferedReader(new InputStreamReader(client.getInputStream()));
-			//System.out.println(in.readLine());
+			System.out.println(in.readLine());
 			//closing the streams
 			//in.close();
 			//out.close();
@@ -174,11 +174,11 @@ class Button_RunServer_Handler implements ActionListener {
 
 
 
-        try {
-            Server_Socket = new ServerSocket(2222);
-        } catch (IOException ex) {
-            System.out.println(ex);
-        }
+       // try {
+        //    Server_Socket = new ServerSocket(2222);
+      //  } catch (IOException ex) {
+        //    System.out.println(ex);
+       // }
 
         Tr2 = new Thread(new MyTread2());
         Tr2.start();
@@ -193,41 +193,41 @@ public class MyTread2 implements Runnable {
 
     @Override
     public void run() {
-        for (int i = 0; i < 1000000; i++) {
+        //for (int i = 0; i < 1000000; i++) {
             try {
-                ServerStatus = 1;
-                //System.out.println("Server: waiting for connections  !!!");
-                ServerCurentStatus_label.setText("Waiting For Connections  !!!");
-                //ServerSocket ss = new ServerSocket(2222);
-                //System.out.println("Server: client is connected");
-                Socket socket = Server_Socket.accept();
-                
-                ServerCurentStatus_label.setText("Connected with "+socket.getRemoteSocketAddress().toString()+"/");
-                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                Writer output = new OutputStreamWriter(socket.getOutputStream());
+            	
+    			Socket client=new Socket("localhost",2222);
+    			System.out.println("Client connected ");
+    			out=new PrintStream(client.getOutputStream());
+
+    			//out.print("Hello from client\n");
+    			//out.flush();
+
+    			BufferedReader in= new BufferedReader(new InputStreamReader(client.getInputStream()));
+    			//System.out.println(in.readLine());
+    			
                 String line;
                 int a = 0;
-                while ((line = input.readLine()) != null) {
+                while ((line = in.readLine()) != null) {
                     //System.out.println(line);
                     a++;
-                    if (a == 12) {
+                    //if (a == 12) {
                         //ServerPrint_TextArea.setText("");
-                        a = 0;
-                    }
+                      //  a = 0;
+                   // }
                     //ServerPrint_TextArea.append(line + "\n");
                     TextField1.setText(line);
-                    output.write(line + "\n");
-                    output.flush();
-                }
-                socket.close();
-                ServerCurentStatus_label.setText("Stopped !!!");
-                ServerStatus = 0;
+                    out.print(a + " xxxxxxxxxxxxxxxx \n");
+                    out.flush();
+                }			
+    			
+            	
             } catch (IOException ex) {
                 System.out.println(ex);
                 ServerStatus = 0;
             }
 
-        }
+       // }
     }
 }
 
