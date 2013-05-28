@@ -106,13 +106,50 @@ public MyGUI() {
     
     JButton Button_DataSend = new JButton("DataSend");
     Button_DataSend.setBounds(200, 10, JButton_Width, JButton_Height);
-    Button_DataSend.addActionListener(new Button_GetIPv4Address_list_Handler());
+    Button_DataSend.addActionListener(new Button_xxx_Handler());
     jf.add(Button_DataSend);
     
     //#############################################
 
     jf.setVisible(true);
 }
+
+
+class Button_xxx_Handler implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+    	System.out.println("xxxxxxxxxxxxxxxxxxxxxxxx");
+    	
+    	
+    	
+        try {
+        	Socket s = new Socket("127.0.0.1",2222);
+            BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+            Writer output = new OutputStreamWriter(s.getOutputStream());
+            
+           // ChatUI theUI = new ChatUI("Client", output);
+            
+            output.write("ddddddddddddddddddddddddddddd");
+            output.flush();
+            
+            //String line;
+            //while((line=input.readLine())!=null){
+                ////theUI.appendText(line);
+                //System.out.println(line);
+            //}     	
+        	
+        	
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }   	
+    	
+    }
+}
+
+
+
+
 
 class Button_RunServer_Handler implements ActionListener {
 
