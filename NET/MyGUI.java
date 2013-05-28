@@ -86,10 +86,10 @@ public MyGUI() {
     
     //#############################################
 
-    groupBoxEncryption_IPv4Address_TextArea.add(scroll_IPv4Address_TextArea);
-    scroll_IPv4Address_TextArea.setBounds(10, 45, 300, 100);
-    scroll_IPv4Address_TextArea.setVisible(true);
-    jf.add(scroll_IPv4Address_TextArea);
+    //groupBoxEncryption_IPv4Address_TextArea.add(scroll_IPv4Address_TextArea);
+    //scroll_IPv4Address_TextArea.setBounds(10, 45, 300, 100);
+    //scroll_IPv4Address_TextArea.setVisible(true);
+    //jf.add(scroll_IPv4Address_TextArea);
 
     groupBoxEncryption_ServerPrint_TextArea.add(scroll_ServerPrint_TextArea);
     scroll_ServerPrint_TextArea.setBounds(10, 220, 500, 220);
@@ -105,13 +105,10 @@ public MyGUI() {
     Button_RunServer.addActionListener(new Button_RunServer_Handler());
     jf.add(Button_RunServer);
 
-    JButton Button_GetIPv4Address_list = new JButton("Get IPv4");
-    Button_GetIPv4Address_list.setBounds(10, 10, JButton_Width, JButton_Height);
-    Button_GetIPv4Address_list.addActionListener(new Button_GetIPv4Address_list_Handler());
-    jf.add(Button_GetIPv4Address_list);
+ 
     
-    JButton Button_DataSend = new JButton("DataSend");
-    Button_DataSend.setBounds(200, 10, JButton_Width, JButton_Height);
+    JButton Button_DataSend = new JButton("Connect");
+    Button_DataSend.setBounds(10, 10, JButton_Width, JButton_Height);
     Button_DataSend.addActionListener(new Button_xxx_Handler());
     jf.add(Button_DataSend);
 
@@ -129,45 +126,30 @@ class Button_yyy_Handler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    	System.out.println("yyyyyyyyyyyyyyyyyyyy");
-    	
-    	
-    	
-       // try {
+    	System.out.println("Client Sent Data");
 
-            //output.write("ddddddddddddddddddddddddddddd");
-            //output.flush();
-            
-    		out.print(mmm + "  Hello from client\n");
-			out.flush();
+    	out.print(mmm + "  Hello from client\n");
+		out.flush();
 			
-			mmm ++ ;
-            
-            
-   
-       // } catch (IOException ex) {
-        //    System.out.println(ex);
-       // }   	
-    	
+		mmm ++ ;
+
     }
 }
 class Button_xxx_Handler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    	System.out.println("xxxxxxxxxxxxxxxxxxxxxxxx");
     	
 		try
 		{
-			//ceating the socket to connect to server running on same machine binded on port no 3000
+
 			Socket client=new Socket("localhost",2222);
 			System.out.println("Client connected ");
-			//getting the o/p stream of that connection
-			 out=new PrintStream(client.getOutputStream());
-			//sending the message to server
+			out=new PrintStream(client.getOutputStream());
+
 			out.print("Hello from client\n");
 			out.flush();
-			//reading the response using input stream
+
 			BufferedReader in= new BufferedReader(new InputStreamReader(client.getInputStream()));
 			//System.out.println(in.readLine());
 			//closing the streams
@@ -205,14 +187,7 @@ class Button_RunServer_Handler implements ActionListener {
     }
 }
 
-class Button_GetIPv4Address_list_Handler implements ActionListener {
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        IPv4Address_TextArea.setText("");
-        IPv4Address();
-    }
-}
 
 public class MyTread2 implements Runnable {
 
@@ -256,28 +231,5 @@ public class MyTread2 implements Runnable {
     }
 }
 
-public void IPv4Address() {
-    String ip;
-    try {
-        Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-        while (interfaces.hasMoreElements()) {
-            NetworkInterface iface = interfaces.nextElement();
-            // filters out 127.0.0.1 and inactive interfaces
-            if (iface.isLoopback() || !iface.isUp()) {
-                continue;
-            }
 
-            Enumeration<InetAddress> addresses = iface.getInetAddresses();
-            while (addresses.hasMoreElements()) {
-                InetAddress addr = addresses.nextElement();
-                ip = addr.getHostAddress();
-                // System.out.println(iface.getDisplayName() + " " + ip);
-                //System.out.println(ip);
-                IPv4Address_TextArea.append(ip + "\n");
-            }
-        }
-    } catch (SocketException e) {
-        throw new RuntimeException(e);
-    }
-}
 }
