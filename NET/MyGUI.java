@@ -31,6 +31,7 @@ public class MyGUI {
 	//Writer output = null	;
 	//Socket s= null	;
 	PrintStream out = null	;
+	int mmm = 0 ;
 	
 //#############################################
 Thread Tr2 = null;
@@ -137,8 +138,10 @@ class Button_yyy_Handler implements ActionListener {
             //output.write("ddddddddddddddddddddddddddddd");
             //output.flush();
             
-    		out.print("Hello from client\n");
+    		out.print(mmm + "  Hello from client\n");
 			out.flush();
+			
+			mmm ++ ;
             
             
    
@@ -176,38 +179,6 @@ class Button_xxx_Handler implements ActionListener {
         System.out.println(ex);
     }  	
    	
-    	
-    }
-}
-
-class Button_xxxwww_Handler implements ActionListener {
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-    	System.out.println("xxxxxxxxxxxxxxxxxxxxxxxx");
-    	
-    	
-    	
-        try {
-        	s = new Socket("127.0.0.1",2222);
-            BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
-             output = new OutputStreamWriter(s.getOutputStream());
-            
-           // ChatUI theUI = new ChatUI("Client", output);
-            
-            //output.write("ddddddddddddddddddddddddddddd\n");
-            //output.flush();
-            
-            //String line;
-            //while((line=input.readLine())!=null){
-                ////theUI.appendText(line);
-                //System.out.println(line);
-            //}     	
-        	
-        	
-        } catch (IOException ex) {
-            System.out.println(ex);
-        }   	
     	
     }
 }
