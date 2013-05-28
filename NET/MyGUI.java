@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.io.Writer;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -27,6 +28,10 @@ import javax.swing.JTextField;
 
 public class MyGUI {
 
+	//Writer output = null	;
+	//Socket s= null	;
+	PrintStream out = null	;
+	
 //#############################################
 Thread Tr2 = null;
 int ServerStatus = 0;
@@ -108,14 +113,74 @@ public MyGUI() {
     Button_DataSend.setBounds(200, 10, JButton_Width, JButton_Height);
     Button_DataSend.addActionListener(new Button_xxx_Handler());
     jf.add(Button_DataSend);
+
     
+    JButton Button_DataSendx = new JButton("DataSendx");
+    Button_DataSendx.setBounds(350, 10, JButton_Width, JButton_Height);
+    Button_DataSendx.addActionListener(new Button_yyy_Handler());
+    jf.add(Button_DataSendx);
     //#############################################
 
     jf.setVisible(true);
 }
 
+class Button_yyy_Handler implements ActionListener {
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+    	System.out.println("yyyyyyyyyyyyyyyyyyyy");
+    	
+    	
+    	
+       // try {
+
+            //output.write("ddddddddddddddddddddddddddddd");
+            //output.flush();
+            
+    		out.print("Hello from client\n");
+			out.flush();
+            
+            
+   
+       // } catch (IOException ex) {
+        //    System.out.println(ex);
+       // }   	
+    	
+    }
+}
 class Button_xxx_Handler implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+    	System.out.println("xxxxxxxxxxxxxxxxxxxxxxxx");
+    	
+		try
+		{
+			//ceating the socket to connect to server running on same machine binded on port no 3000
+			Socket client=new Socket("localhost",2222);
+			System.out.println("Client connected ");
+			//getting the o/p stream of that connection
+			 out=new PrintStream(client.getOutputStream());
+			//sending the message to server
+			out.print("Hello from client\n");
+			out.flush();
+			//reading the response using input stream
+			BufferedReader in= new BufferedReader(new InputStreamReader(client.getInputStream()));
+			//System.out.println(in.readLine());
+			//closing the streams
+			//in.close();
+			//out.close();
+ 
+		
+    } catch (IOException ex) {
+        System.out.println(ex);
+    }  	
+   	
+    	
+    }
+}
+
+class Button_xxxwww_Handler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -124,14 +189,14 @@ class Button_xxx_Handler implements ActionListener {
     	
     	
         try {
-        	Socket s = new Socket("127.0.0.1",2222);
+        	s = new Socket("127.0.0.1",2222);
             BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            Writer output = new OutputStreamWriter(s.getOutputStream());
+             output = new OutputStreamWriter(s.getOutputStream());
             
            // ChatUI theUI = new ChatUI("Client", output);
             
-            output.write("ddddddddddddddddddddddddddddd");
-            output.flush();
+            //output.write("ddddddddddddddddddddddddddddd\n");
+            //output.flush();
             
             //String line;
             //while((line=input.readLine())!=null){
@@ -146,8 +211,6 @@ class Button_xxx_Handler implements ActionListener {
     	
     }
 }
-
-
 
 
 
