@@ -52,7 +52,7 @@ public JLabel ServerCurentStatus_label = new JLabel();
 
 
 public MyGUI() {
-    JFrame jf = new JFrame("IP Server v0.01");
+    JFrame jf = new JFrame("IP Client v0.01");
     jf.setLayout(null);
     jf.setBounds(100, 100, 535, 500);
     jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,7 +103,12 @@ public MyGUI() {
     Button_GetIPv4Address_list.setBounds(10, 10, JButton_Width, JButton_Height);
     Button_GetIPv4Address_list.addActionListener(new Button_GetIPv4Address_list_Handler());
     jf.add(Button_GetIPv4Address_list);
-
+    
+    JButton Button_DataSend = new JButton("DataSend");
+    Button_DataSend.setBounds(200, 10, JButton_Width, JButton_Height);
+    Button_DataSend.addActionListener(new Button_GetIPv4Address_list_Handler());
+    jf.add(Button_DataSend);
+    
     //#############################################
 
     jf.setVisible(true);
