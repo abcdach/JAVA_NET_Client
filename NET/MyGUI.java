@@ -100,42 +100,35 @@ public MyGUI() {
 
     int JButton_Width = 110;
     int JButton_Height = 30;
-    JButton Button_RunClient = new JButton("RunClient");
-    Button_RunClient.setBounds(10, 160, JButton_Width, JButton_Height);
-    Button_RunClient.addActionListener(new Button_RunClient_Handler());
-    jf.add(Button_RunClient);
-
- 
     
-    JButton Button_DataSend = new JButton("Connect");
+    JButton Button_Connect = new JButton("Connect");
+    Button_Connect.setBounds(10, 160, JButton_Width, JButton_Height);
+    Button_Connect.addActionListener(new Button_Connect_Handler());
+    jf.add(Button_Connect);
+ 
+    JButton Button_DataSend = new JButton("DataSend");
     Button_DataSend.setBounds(10, 10, JButton_Width, JButton_Height);
-    Button_DataSend.addActionListener(new Button_xxx_Handler());
+    Button_DataSend.addActionListener(new Button_DataSend_Handler());
     jf.add(Button_DataSend);
 
-    
-    JButton Button_DataSendx = new JButton("DataSendx");
-    Button_DataSendx.setBounds(350, 10, JButton_Width, JButton_Height);
-    Button_DataSendx.addActionListener(new Button_yyy_Handler());
-    jf.add(Button_DataSendx);
+
     //#############################################
 
     jf.setVisible(true);
 }
 
-class Button_yyy_Handler implements ActionListener {
+
+class Button_DataSend_Handler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
-    }
-}
-class Button_xxx_Handler implements ActionListener {
-    @Override
-    public void actionPerformed(ActionEvent e) {
+        out.print(" xxxxxxxxxxxxxxxx \n");
+        out.flush();
     }
 }
 
 
 
-class Button_RunClient_Handler implements ActionListener {
+class Button_Connect_Handler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Tr2 = new Thread(new MyTread2());
