@@ -52,8 +52,8 @@ public JTextField TextField_PORT = new JTextField();
 //#############################################
 //public JTextField ServerCurentStatus_TextField = new JTextField();
 //#############################################
-public JLabel ServerStatus_label = new JLabel();
-public JLabel ServerCurentStatus_label = new JLabel();
+//public JLabel ServerStatus_label = new JLabel();
+//public JLabel ServerCurentStatus_label = new JLabel();
 
 public JLabel label_RemoteIP = new JLabel();
 public JLabel label_RemotePORT = new JLabel();
@@ -72,18 +72,11 @@ public MyGUI() {
     
     //#############################################
     
-    
-    ServerStatus_label.setBounds(125, 172, 400, 25);
-    ServerStatus_label.setText("Server Status :");
-    jf.add(ServerStatus_label);
-    
-    ServerCurentStatus_label.setBounds(235, 172, 400, 25);
-    ServerCurentStatus_label.setForeground(Color.RED);
-    ServerCurentStatus_label.setText(".....");
-    jf.add(ServerCurentStatus_label);       
-    
-    
+    int JButton_Width = 110;
+    int JButton_Height = 30;
+
     //#############################################
+    
     int MyX1 = 10;
     int MyY1 = 10;
     
@@ -91,7 +84,7 @@ public MyGUI() {
     label_ClientSTATUS.setText("Client Status :");
     jf.add(label_ClientSTATUS);
     
-    label_ClientSTATUS_Text.setBounds(MyX1+105, MyY1, 200, 25);
+    label_ClientSTATUS_Text.setBounds(MyX1+105, MyY1, 400, 25);
     label_ClientSTATUS_Text.setText("No Status Information");
     label_ClientSTATUS_Text.setForeground(Color.RED);
     jf.add(label_ClientSTATUS_Text);
@@ -101,21 +94,29 @@ public MyGUI() {
     int MyX = 10;
     int MyY = 40;
     
-    label_RemoteIP.setBounds(MyX, MyY, 100, 25);
+    JButton Button_Connect = new JButton("Connect");
+    Button_Connect.setBounds(MyX, MyY+8, JButton_Width, JButton_Height+6);
+    Button_Connect.addActionListener(new Button_Connect_Handler());
+    jf.add(Button_Connect); 
+    
+    label_RemoteIP.setBounds(MyX +130, MyY, 100, 25);
     label_RemoteIP.setText("IP");
     jf.add(label_RemoteIP);
     
-    TextField_IP.setBounds(MyX, MyY+20, 100, 25);
+    TextField_IP.setBounds(MyX+130, MyY+20, 100, 25);
     TextField_IP.setText("127.0.0.1");
     jf.add(TextField_IP);
     
-    label_RemotePORT.setBounds(MyX+110, MyY, 100, 25);
+    label_RemotePORT.setBounds(MyX+240, MyY, 100, 25);
     label_RemotePORT.setText("PORT");
     jf.add(label_RemotePORT);  
     
-    TextField_PORT.setBounds(MyX+110, MyY+20, 100, 25);
+    TextField_PORT.setBounds(MyX+240, MyY+20, 100, 25);
     TextField_PORT.setText("2222");
     jf.add(TextField_PORT);  
+    
+   
+ 
     //#############################################
 
     
@@ -144,13 +145,7 @@ public MyGUI() {
 
     //#############################################
 
-    int JButton_Width = 110;
-    int JButton_Height = 30;
-    
-    JButton Button_Connect = new JButton("Connect");
-    Button_Connect.setBounds(10, 160, JButton_Width, JButton_Height);
-    Button_Connect.addActionListener(new Button_Connect_Handler());
-    jf.add(Button_Connect);
+
  
     JButton Button_DataSend = new JButton("DataSend");
     Button_DataSend.setBounds(10, 120, JButton_Width, JButton_Height);
@@ -196,7 +191,9 @@ public class MyTread2 implements Runnable {
             	
             	
     			Socket client=new Socket(Remote_IP, Remote_PORT);
-    			System.out.println("Client connected ");
+    			label_ClientSTATUS_Text.setText("Connected with "+client.getRemoteSocketAddress().toString()+"/");
+    			
+    			
     			out=new PrintStream(client.getOutputStream());
 
     			BufferedReader in= new BufferedReader(new InputStreamReader(client.getInputStream()));
