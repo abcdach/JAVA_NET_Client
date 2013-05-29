@@ -47,11 +47,16 @@ public JPanel groupBoxEncryption_ServerPrint_TextArea = new JPanel();
 public JScrollPane scroll_ServerPrint_TextArea = new JScrollPane(ServerPrint_TextArea);
 //#############################################
 public JTextField TextField1 = new JTextField();
+public JTextField TextField_IP = new JTextField();
+public JTextField TextField_PORT = new JTextField();
 //#############################################
 //public JTextField ServerCurentStatus_TextField = new JTextField();
 //#############################################
 public JLabel ServerStatus_label = new JLabel();
 public JLabel ServerCurentStatus_label = new JLabel();
+
+public JLabel RemoteIP_label = new JLabel();
+public JLabel RemotePORT_label = new JLabel();
 //#############################################
 //#############################################
 //#############################################
@@ -65,6 +70,11 @@ public MyGUI() {
     
     //#############################################
 
+    RemoteIP_label.setBounds(10, 100, 400, 25);
+    RemoteIP_label.setText("IP");
+    jf.add(RemoteIP_label);
+    
+    
     ServerStatus_label.setBounds(125, 172, 400, 25);
     ServerStatus_label.setText("Server Status :");
     jf.add(ServerStatus_label);
@@ -74,6 +84,29 @@ public MyGUI() {
     ServerCurentStatus_label.setText(".....");
     jf.add(ServerCurentStatus_label);       
     //#############################################
+    
+    int MyX = 10;
+    int MyY = 60;
+    
+    RemoteIP_label.setBounds(MyX, MyY, 100, 25);
+    RemoteIP_label.setText("IP");
+    jf.add(RemoteIP_label);
+    
+    TextField_IP.setBounds(MyX, MyY+20, 100, 25);
+    TextField_IP.setText("127.0.0.1");
+    jf.add(TextField_IP);
+    
+    RemotePORT_label.setBounds(MyX+110, MyY, 100, 25);
+    RemotePORT_label.setText("PORT");
+    jf.add(RemotePORT_label);  
+    
+    TextField_PORT.setBounds(MyX+110, MyY+20, 100, 25);
+    TextField_PORT.setText("2222");
+    jf.add(TextField_PORT);  
+    //#############################################
+
+    
+    
     
     TextField1.setBounds(10, 195, 500, 25);
     jf.add(TextField1);
@@ -145,7 +178,11 @@ public class MyTread2 implements Runnable {
 
             try {
             	
-    			Socket client=new Socket("localhost",2222);
+            	int Remote_PORT = Integer.parseInt(TextField_PORT.getText());
+            	String Remote_IP = TextField_IP.getText();
+            	
+            	
+    			Socket client=new Socket(Remote_IP, Remote_PORT);
     			System.out.println("Client connected ");
     			out=new PrintStream(client.getOutputStream());
 
