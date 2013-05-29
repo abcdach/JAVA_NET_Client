@@ -100,10 +100,10 @@ public MyGUI() {
 
     int JButton_Width = 110;
     int JButton_Height = 30;
-    JButton Button_RunServer = new JButton("RunServer");
-    Button_RunServer.setBounds(10, 160, JButton_Width, JButton_Height);
-    Button_RunServer.addActionListener(new Button_RunServer_Handler());
-    jf.add(Button_RunServer);
+    JButton Button_RunClient = new JButton("RunClient");
+    Button_RunClient.setBounds(10, 160, JButton_Width, JButton_Height);
+    Button_RunClient.addActionListener(new Button_RunClient_Handler());
+    jf.add(Button_RunClient);
 
  
     
@@ -123,67 +123,23 @@ public MyGUI() {
 }
 
 class Button_yyy_Handler implements ActionListener {
-
     @Override
     public void actionPerformed(ActionEvent e) {
-    	System.out.println("Client Sent Data");
-
-    	out.print(mmm + "  Hello from client\n");
-		out.flush();
-			
-		mmm ++ ;
-
     }
 }
 class Button_xxx_Handler implements ActionListener {
-
     @Override
     public void actionPerformed(ActionEvent e) {
-    	
-		try
-		{
-
-			Socket client=new Socket("localhost",2222);
-			System.out.println("Client connected ");
-			out=new PrintStream(client.getOutputStream());
-
-			//out.print("Hello from client\n");
-			//out.flush();
-
-			BufferedReader in= new BufferedReader(new InputStreamReader(client.getInputStream()));
-			System.out.println(in.readLine());
-			//closing the streams
-			//in.close();
-			//out.close();
- 
-		
-    } catch (IOException ex) {
-        System.out.println(ex);
-    }  	
-   	
-    	
     }
 }
 
 
 
-class Button_RunServer_Handler implements ActionListener {
-
+class Button_RunClient_Handler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
-
-
-
-       // try {
-        //    Server_Socket = new ServerSocket(2222);
-      //  } catch (IOException ex) {
-        //    System.out.println(ex);
-       // }
-
         Tr2 = new Thread(new MyTread2());
         Tr2.start();
-
-
     }
 }
 
@@ -193,31 +149,22 @@ public class MyTread2 implements Runnable {
 
     @Override
     public void run() {
-        //for (int i = 0; i < 1000000; i++) {
+
             try {
             	
     			Socket client=new Socket("localhost",2222);
     			System.out.println("Client connected ");
     			out=new PrintStream(client.getOutputStream());
 
-    			//out.print("Hello from client\n");
-    			//out.flush();
-
     			BufferedReader in= new BufferedReader(new InputStreamReader(client.getInputStream()));
-    			//System.out.println(in.readLine());
     			
                 String line;
                 int a = 0;
                 while ((line = in.readLine()) != null) {
-                    //System.out.println(line);
-                    a++;
-                    //if (a == 12) {
-                        //ServerPrint_TextArea.setText("");
-                      //  a = 0;
-                   // }
+
                     //ServerPrint_TextArea.append(line + "\n");
                     TextField1.setText(line);
-                    out.print(a + " xxxxxxxxxxxxxxxx \n");
+                    out.print(a + " xxxxxxxxxxxxxxxx \n"); a++;
                     out.flush();
                 }			
     			
@@ -226,8 +173,6 @@ public class MyTread2 implements Runnable {
                 System.out.println(ex);
                 ServerStatus = 0;
             }
-
-       // }
     }
 }
 
