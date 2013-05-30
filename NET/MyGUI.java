@@ -30,12 +30,14 @@ public class MyGUI {
 
 	//Writer output = null	;
 	//Socket s= null	;
-	PrintStream out = null	;
-	int mmm = 0 ;
 	
+	int mmm = 0 ;
+//#############################################
+PrintStream out = null;
+BufferedReader in = null;
 //#############################################
 Thread Tr2 = null;
-int ServerStatus = 0;
+int ClientStatus = 0;
 ServerSocket Server_Socket;
 //#############################################
 public JTextArea IPv4Address_TextArea = new JTextArea();
@@ -60,6 +62,8 @@ public JLabel label_RemotePORT = new JLabel();
 public JLabel label_ClientSTATUS = new JLabel();
 public JLabel label_ClientSTATUS_Text = new JLabel();
 //#############################################
+JButton Button_Connect;
+JButton Button_DataSend;
 //#############################################
 //#############################################
 
@@ -90,11 +94,11 @@ public MyGUI() {
     jf.add(label_ClientSTATUS_Text);
   
     //#############################################
-
+    
     int MyX = 10;
     int MyY = 40;
     
-    JButton Button_Connect = new JButton("Connect");
+    Button_Connect = new JButton("Connect");
     Button_Connect.setBounds(MyX, MyY+8, JButton_Width, JButton_Height+6);
     Button_Connect.addActionListener(new Button_Connect_Handler());
     jf.add(Button_Connect); 
@@ -126,17 +130,6 @@ public MyGUI() {
     jf.add(TextField1);
    
     //#############################################
-    
-    //ServerCurentStatus_TextField.setBounds(115, 160, 395, 31);
-    //jf.add(ServerCurentStatus_TextField);
-    //ServerCurentStatus_TextField.setText("Server Stopped !!!");
-    
-    //#############################################
-
-    //groupBoxEncryption_IPv4Address_TextArea.add(scroll_IPv4Address_TextArea);
-    //scroll_IPv4Address_TextArea.setBounds(10, 45, 300, 100);
-    //scroll_IPv4Address_TextArea.setVisible(true);
-    //jf.add(scroll_IPv4Address_TextArea);
 
     groupBoxEncryption_ServerPrint_TextArea.add(scroll_ServerPrint_TextArea);
     scroll_ServerPrint_TextArea.setBounds(10, 220, 500, 220);
@@ -147,9 +140,10 @@ public MyGUI() {
 
 
  
-    JButton Button_DataSend = new JButton("DataSend");
+    Button_DataSend = new JButton("DataSend");
     Button_DataSend.setBounds(10, 120, JButton_Width, JButton_Height);
     Button_DataSend.addActionListener(new Button_DataSend_Handler());
+    Button_DataSend.setEnabled(false);
     jf.add(Button_DataSend);
 
 
@@ -172,8 +166,26 @@ class Button_DataSend_Handler implements ActionListener {
 class Button_Connect_Handler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
-        Tr2 = new Thread(new MyTread2());
-        Tr2.start();
+    	
+    	if (ClientStatus==0){
+    	
+    		Tr2 = new Thread(new MyTread2());
+    		Tr2.start();
+    		
+    	}else{
+			out.close();
+			try {
+				in.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			Button_Connect.setText("Connect");
+			Button_DataSend.setEnabled(false);
+			ClientStatus=0;
+    	}
+        
+        
+        
     }
 }
 
@@ -191,12 +203,14 @@ public class MyTread2 implements Runnable {
             	
             	
     			Socket client=new Socket(Remote_IP, Remote_PORT);
-    			label_ClientSTATUS_Text.setText("Connected with "+client.getRemoteSocketAddress().toString()+"/");
     			
+        		ClientStatus = 1 ;			
+    			label_ClientSTATUS_Text.setText("Connected with "+client.getRemoteSocketAddress().toString()+"/");
+    			Button_Connect.setText("Disconnect");
+    			Button_DataSend.setEnabled(true);
     			
     			out=new PrintStream(client.getOutputStream());
-
-    			BufferedReader in= new BufferedReader(new InputStreamReader(client.getInputStream()));
+    			in= new BufferedReader(new InputStreamReader(client.getInputStream()));
     			
                 String line;
                 int a = 0;
@@ -210,8 +224,9 @@ public class MyTread2 implements Runnable {
     			
             	
             } catch (IOException ex) {
+            	label_ClientSTATUS_Text.setText(ex.getMessage());
                 System.out.println(ex);
-                ServerStatus = 0;
+                //ClientStatus = 0;
             }
     }
 }
