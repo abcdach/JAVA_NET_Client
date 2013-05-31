@@ -62,8 +62,8 @@ public JLabel label_RemotePORT = new JLabel();
 public JLabel label_ClientSTATUS = new JLabel();
 public JLabel label_ClientSTATUS_Text = new JLabel();
 //#############################################
-JButton Button_Connect;
-JButton Button_DataSend;
+JButton Button_Connect = new JButton("Connect");
+JButton Button_DataSend = new JButton("DataSend");
 //#############################################
 //#############################################
 
@@ -98,28 +98,26 @@ public MyGUI() {
     int MyX = 10;
     int MyY = 40;
     
-    Button_Connect = new JButton("Connect");
-    Button_Connect.setBounds(MyX, MyY+8, JButton_Width, JButton_Height+6);
-    Button_Connect.addActionListener(new Button_Connect_Handler());
-    jf.add(Button_Connect); 
-    
-    label_RemoteIP.setBounds(MyX +130, MyY, 100, 25);
+    label_RemoteIP.setBounds(MyX, MyY, 100, 25);
     label_RemoteIP.setText("IP");
     jf.add(label_RemoteIP);
     
-    TextField_IP.setBounds(MyX+130, MyY+20, 100, 25);
+    TextField_IP.setBounds(MyX, MyY+20, 100, 25);
     TextField_IP.setText("127.0.0.1");
     jf.add(TextField_IP);
     
-    label_RemotePORT.setBounds(MyX+240, MyY, 100, 25);
+    label_RemotePORT.setBounds(MyX+110, MyY, 100, 25);
     label_RemotePORT.setText("PORT");
     jf.add(label_RemotePORT);  
     
-    TextField_PORT.setBounds(MyX+240, MyY+20, 100, 25);
+    TextField_PORT.setBounds(MyX+110, MyY+20, 100, 25);
     TextField_PORT.setText("2222");
     jf.add(TextField_PORT);  
     
-   
+    
+    Button_Connect.setBounds(MyX, MyY+50, JButton_Width+100, JButton_Height);
+    Button_Connect.addActionListener(new Button_Connect_Handler());
+    jf.add(Button_Connect);  
  
     //#############################################
 
@@ -140,8 +138,8 @@ public MyGUI() {
 
 
  
-    Button_DataSend = new JButton("DataSend");
-    Button_DataSend.setBounds(10, 120, JButton_Width, JButton_Height);
+    
+    Button_DataSend.setBounds(10, 150, JButton_Width, JButton_Height);
     Button_DataSend.addActionListener(new Button_DataSend_Handler());
     Button_DataSend.setEnabled(false);
     jf.add(Button_DataSend);
